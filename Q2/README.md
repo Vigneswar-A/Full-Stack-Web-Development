@@ -1,7 +1,7 @@
 # Book Inventory Management
----
+
 ## View
-![image](https://github.com/user-attachments/assets/1062f513-08df-412f-b511-fde6cc87c23f)
+![image](https://github.com/user-attachments/assets/aff94598-b6d1-4bc5-8c59-599fa5092d5b)
 ---
 ## Create
 ![image](https://github.com/user-attachments/assets/230766ef-3f28-4ddc-b5c0-6be57b608bf6)
