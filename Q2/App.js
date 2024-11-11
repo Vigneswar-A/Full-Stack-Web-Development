@@ -10,6 +10,7 @@ import {useEffect, useState} from 'react';
 import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import Card from 'react-bootstrap/Card';
 
 function CreateBookForm(){
   const {register, handleSubmit, formState:{errors}} = useForm();
@@ -76,39 +77,49 @@ function CreateBookForm(){
   </Container>)
 }
 
-function SearchBook(){
-  const {register, handleSubmit, formState: {errors}} = useForm();
+function SearchBook() {
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const [book, setBook] = useState({});
+
   const onSubmit = async (data) => {
     const res = await axios.get(`http://127.0.0.1:5000/book/${data.ISBN}`);
     setBook(res.data || {});
-  }
-  return (<Container className="my-5">
-    <h1 className="text-center">Search Book</h1>
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <Form.Group controlId="formBasicSearch" className="d-flex align-items-center">
-        <Form.Control 
-        type="text" 
-        className="me-3" 
-        placeholder="ISBN"
-        {...register('ISBN', {required:'Please enter a valid ISBN'})}
-        />
-        <Button type="submit" >
-          Search
-        </Button>
-      </Form.Group>
-      {errors.ISBN && <p className="text-danger">{errors.ISBN.message}</p>}
-    </Form>
-    {book.error && <p className="text-danger">{book.error}</p>}
-    <div className='mt-4'>
-      {book.BookTitle && <p><strong className="me-3">Book Title</strong>{book.BookTitle}</p>}
-      {book.ISBN && <p><strong className="me-3">ISBN</strong>{book.ISBN}</p>}
-      {book.Author && <p><strong className="me-3">Author</strong>{book.Author}</p>}
-      {book.Category && <p><strong className="me-3">Category</strong>{book.Category}</p>}
-      {book.Quantity && <p><strong className="me-3">Quantity</strong>{book.Quantity}</p>}
-    </div>
-    
-  </Container>);
+  };
+
+  return (
+    <Container className="my-5">
+      <h1 className="text-center">Search Book</h1>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form.Group controlId="formBasicSearch" className="d-flex align-items-center">
+          <Form.Control
+            type="text"
+            className="me-3"
+            placeholder="ISBN"
+            {...register('ISBN', { required: 'Please enter a valid ISBN' })}
+          />
+          <Button type="submit">Search</Button>
+        </Form.Group>
+        {errors.ISBN && <p className="text-danger">{errors.ISBN.message}</p>}
+      </Form>
+
+      {book.error && <p className="text-danger">{book.error}</p>}
+      {book.BookTitle && (
+        <div className="mt-4">
+          <Card>
+            <Card.Body>
+              <Card.Title className="text-center">{book.BookTitle}</Card.Title>
+              <Card.Text>
+                <p><strong>ISBN:</strong> {book.ISBN}</p>
+                <p><strong>Author:</strong> {book.Author}</p>
+                <p><strong>Category:</strong> {book.Category}</p>
+                <p><strong>Quantity:</strong> {book.Quantity}</p>
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </div>
+      )}
+    </Container>
+  );
 }
 
 function DeleteBook(){
