@@ -83,6 +83,7 @@ function AddStudentForm(){
     try{
       const res = await axios.post('http://127.0.0.1:5000/student', data);
       setMessage(res.data);
+      reset();
     }
     catch(e){
       if (e.response?.status === 403)
