@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import {Container, Form, Button, Card, Row, Col, Navbar, Nav, NavbarBrand, ListGroup} from 'react-bootstrap';
+import {Container, Form, Button, Card, Row, Col, Navbar, Nav, ListGroup} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle';
 import {useState} from 'react';
@@ -139,7 +139,7 @@ function AddStudentForm(){
       <Form.Group controlId='formBasicEmail'>
         <Form.Label>Email</Form.Label>
         <Form.Control 
-        type="text"
+        type="email"
         placeholder='Enter Student Email'
         {...register('email', {required: 'Email name is required!'})}
         />
@@ -157,7 +157,7 @@ function AddStudentForm(){
 }
 
 function SearchStudent(){
-  const {register, handleSubmit, formState: {errors}, reset} = useForm();
+  const {register, handleSubmit, formState: {errors}} = useForm();
   const [student, setStudent] = useState({});
   const onSubmit = async ({ID}) => {
     const res = await axios.get(`http://127.0.0.1:5000/student/${ID}`);
@@ -204,7 +204,7 @@ function SearchStudent(){
 }
 
 function DeleteStudent(){
-  const {register, handleSubmit, formState: {errors}, reset} = useForm();
+  const {register, handleSubmit} = useForm();
   const [message, setMessage] = useState({});
   const navigate = useNavigate();
   const onSubmit = async ({ID}) => {
@@ -242,11 +242,9 @@ function DeleteStudent(){
 
 function Logout({setAuthenticated}){
   const navigate = useNavigate();
-  useEffect(() => {
-    localStorage.removeItem('auth');
-    setAuthenticated(false);
-    navigate('/');
-  }, []);
+  localStorage.removeItem('auth');
+  setAuthenticated(false);
+  navigate('/');
 }
 
 function StudentsList(){
