@@ -8,11 +8,12 @@ import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom';
 
 function AddProductForm(){
-    const {register, handleSubmit, formState: {errors}} = useForm();
+    const {register, handleSubmit, formState: {errors}, reset} = useForm();
     const [message, setMessage] = useState({});
     const onSubmit = async (data) => {
         const res = await axios.post('http://127.0.0.1:5000/product', data);
-        setMessage(res.data || {})
+        setMessage(res.data || {});
+        reset();
     }
     return (
     <Container>
