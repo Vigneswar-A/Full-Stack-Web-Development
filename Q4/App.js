@@ -294,7 +294,7 @@ const App = () => {
   const [authenticated, setAuthenticated] = useState(false);
   return (
   <Router>
-    <Navbar> 
+    <Navbar bg='dark' variant='dark'> 
       <Container>
         <Navbar.Brand as={Link} to="/">DEF</Navbar.Brand>
         <Nav className="me-auto">
