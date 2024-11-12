@@ -2,7 +2,6 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import crypto from 'crypto';
-import cookie from 'cookie';
 
 const studentSchema = new mongoose.Schema({
     name: String, 
@@ -30,7 +29,7 @@ const adminCookie = crypto.randomBytes(64).toString('hex');
 
 const authenticate = (req, res, next) => {
     try{
-        if (req.headers.authorization?.split('=')[1] === adminCookie){
+        if (req.headers.authorization?.split(' ')[1] === adminCookie){
             req.authenticated = true;
         } else{
             req.authenticated = false;
@@ -50,7 +49,7 @@ app.post('/login', (req, res) => {
     const {username, password } = req.body;
     if (username === "admin" && password === "secret_admin_password")
     {
-        res.status(200).json({auth: cookie.serialize('auth', adminCookie)});
+        res.status(200).json({auth: adminCookie});
     } else{
         res.status(403).json({error: 'Invalid credentials!'});
     }
