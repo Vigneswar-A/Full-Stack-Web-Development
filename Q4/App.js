@@ -265,7 +265,10 @@ function StudentsList(){
     <ListGroup>
       {students.map((student) => (
         <ListGroup.Item key={student._id}>
-          <Row>
+        <Row>
+          <Col xs="12" className='text-center'><strong>{student.ID}</strong></Col>
+        </Row>
+        <Row>
           <Col xs="6" className='text-center'><strong>Name</strong></Col>
           <Col xs="6" className='text-center'><p>{student.name}</p></Col>
         </Row>
